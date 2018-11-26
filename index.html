@@ -50,10 +50,7 @@ var svg = d3.select("body")
 
 
 d3.csv("Bus_Data_Story.csv", function(err, data) { 
-/* Data in strings like it would be if imported from a csv 
 
-*/
-// Transpose the data into layers
 var dataset = d3.layout.stack()(["Local Fund ", "State Fund", "Federal Assistance"].map(function(funding) {
   return data.map(function(d) {
     return {x: d.City, y: +d[funding]};
@@ -120,7 +117,6 @@ var rect = groups.selectAll("rect")
   });
 
 
-// Draw legend
 var legend = svg.selectAll(".legend")
   .data(colors)
   .enter().append("g")
