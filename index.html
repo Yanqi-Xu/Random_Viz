@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>d3.js learning</title>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <style type="text/css">
   svg {
     font: 10px sans-serif;
@@ -50,7 +50,10 @@ var svg = d3.select("body")
 
 
 d3.csv("Bus_Data_Story.csv", function(err, data) { 
+/* Data in strings like it would be if imported from a csv 
 
+*/
+// Transpose the data into layers
 var dataset = d3.layout.stack()(["Local Fund ", "State Fund", "Federal Assistance"].map(function(funding) {
   return data.map(function(d) {
     return {x: d.City, y: +d[funding]};
@@ -117,6 +120,7 @@ var rect = groups.selectAll("rect")
   });
 
 
+// Draw legend
 var legend = svg.selectAll(".legend")
   .data(colors)
   .enter().append("g")
@@ -141,7 +145,20 @@ legend.append("text")
       case 2: return "Local Funding";
     }
   });
+
+  var tooltip = svg.append("g")
+  .attr("class", "tooltip")
+  .style("display", "none");
+
+tooltip.append("text")
+  .attr("x", 15)
+  .attr("dy", "1.2em")
+  .style("text-anchor", "middle")
+  .attr("font-size", "12px")
+  .attr("font-weight", "bold");
 });
+
+
 
 
 </script>
